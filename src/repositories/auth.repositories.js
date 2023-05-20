@@ -17,7 +17,7 @@ export function getEmailDB(email) {
 
 export function signInDB(user, token) {
   return db.query(
-    `INSERT INTO sessions ("idUser", token) VALUES ($1, $2)`,
+    `INSERT INTO sessions ("userId", token) VALUES ($1, $2)`,
     [ user[0].id, token ]
   );
 }
