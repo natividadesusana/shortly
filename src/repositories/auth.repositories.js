@@ -1,5 +1,6 @@
 import { db } from "../database/database.connection.js";
 
+
 export function signUpDB(body, hash) {
   const { name, email } = body;
   return db.query(
@@ -8,6 +9,7 @@ export function signUpDB(body, hash) {
   );
 }
 
+
 export function getEmailDB(email) {
   return db.query(
     `SELECT * FROM users WHERE email=$1`, 
@@ -15,12 +17,14 @@ export function getEmailDB(email) {
   );
 }
 
+
 export function signInDB(user, token) {
   return db.query(
     `INSERT INTO sessions ("userId", token) VALUES ($1, $2)`,
     [ user[0].id, token ]
   );
 }
+
 
 export function findSession(token) {
   return db.query(
