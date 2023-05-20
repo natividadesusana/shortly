@@ -34,3 +34,17 @@ export function updateUrlDB(views, shortUrl){
     [views, shortUrl]
   );
 }
+
+export function getUserDB(idUser, id){
+  return db.query(
+    `SELECT * FROM urls WHERE "idUser"=$1 AND id=$2`, 
+    [idUser, id]
+  );
+}
+
+export function deleteUrlDB(id){
+  return db.query(
+    `DELETE FROM urls WHERE id=$1`, 
+    [id]
+  );
+}
