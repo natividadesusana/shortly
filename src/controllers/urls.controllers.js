@@ -1,5 +1,5 @@
 import { nanoid } from "nanoid";
-import { createUrlDB, getUrlDB } from "../repositories/urls.repositories.js";
+import { createUrlDB, getUrlDB, getUrlByIdDB } from "../repositories/urls.repositories.js";
 
 export async function createUrl(req, res) {
   const { url } = req.body;
@@ -7,29 +7,31 @@ export async function createUrl(req, res) {
   const shortUrl = nanoid();
 
   try {
-      await createUrlDB(url, userId, shortUrl);
-      const createdUrl = await getUrlDB(shortUrl);
-      const urlId = createdUrl.rows[0].id;
-      res.status(201).send({ urlId, shortUrl });
+    await createUrlDB(url, userId, shortUrl);
+    const createdUrl = await getUrlDB(shortUrl);
+    const urlId = createdUrl.rows[0].id;
+    res.status(201).send({ urlId, shortUrl });
   } catch (error) {
     res.status(500).send(error.message);
   }
 }
 
-export async function getUrl(req, res) {
+export async function getUrlById(req, res) {
+  const { id } = req.params;
 
   try {
-
-    res.status(201);
+    const { rows, rowCount } = await getUrlByIdDB(id);
+    if (!rowCount) {
+      return res.status(404);
+    }
+    res.status(200).send(rows[0]);
   } catch (error) {
     res.status(500).send(error.message);
   }
 }
 
 export async function getShortUrl(req, res) {
-
   try {
-
     res.status(201);
   } catch (error) {
     res.status(500).send(error.message);
@@ -37,9 +39,7 @@ export async function getShortUrl(req, res) {
 }
 
 export async function deleteUrl(req, res) {
-
   try {
-    
     res.status(201);
   } catch (error) {
     res.status(500).send(error.message);

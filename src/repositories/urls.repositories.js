@@ -8,7 +8,15 @@ export function createUrlDB(url, userId, shortUrl) {
 }
 
 export function getUrlDB(shortUrl) {
-  return db.query(`SELECT * FROM urls WHERE "shortUrl"=$1`, 
-  [shortUrl]
-);
+  return db.query(
+    `SELECT * FROM urls WHERE "shortUrl"=$1`, 
+    [shortUrl]
+  );
+}
+
+export function getUrlByIdDB(id) {
+  return db.query(
+    `SELECT id, "shortUrl", url FROM urls WHERE id=$1`, 
+    [id]
+  );
 }
