@@ -8,9 +8,23 @@ export function signUpDB(body, hash) {
   );
 }
 
-export function getEmail(email) {
+export function getEmailDB(email) {
   return db.query(
-    `SELECT * FROM users WHERE email=$1`,
+    `SELECT * FROM users WHERE email=$1`, 
     [email]
+  );
+}
+
+export function signInDB(user, token) {
+  return db.query(
+    `INSERT INTO sessions ("idUser", token) VALUES ($1, $2)`,
+    [ user[0].id, token ]
+  );
+}
+
+export function findSession(token) {
+  return db.query(
+    `SELECT * FROM sessions WHERE token=$1`,
+    [token]
   );
 }

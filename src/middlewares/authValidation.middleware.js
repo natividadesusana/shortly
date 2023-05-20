@@ -1,4 +1,4 @@
-import { db } from "../database/database.connection.js";
+import { findSession } from "../repositories/auth.repositories.js";
 
 export async function authValidation(req, res, next) {
   const { authorization } = req.headers;
@@ -6,10 +6,9 @@ export async function authValidation(req, res, next) {
   if (!token) return res.sendStatus(401);
 
   try {
-    const session = await db.collection("sessions").findOne({ token });
-    if (!session) return res.sendStatus(401);
-
-    res.locals.session = session;
+    const session = await findSession(token);
+    if (!session.rowCount) return res.sendStatus(401);
+    res.locals.session = session.rows[0];
 
     next();
   } catch (error) {
