@@ -1,5 +1,11 @@
 import { nanoid } from "nanoid";
-import { createUrlDB, getUrlDB, getUrlByIdDB } from "../repositories/urls.repositories.js";
+import {
+  createUrlDB,
+  getUrlDB,
+  getUrlByIdDB,
+  getShortUrlDB,
+  updateUrlDB
+} from "../repositories/urls.repositories.js";
 
 export async function createUrl(req, res) {
   const { url } = req.body;
@@ -31,8 +37,16 @@ export async function getUrlById(req, res) {
 }
 
 export async function getShortUrl(req, res) {
+  const { shortUrl } = req.params;
   try {
-    res.status(201);
+    const redirectToUrl = rows[0].url;
+    const countViewsUrl = rows[0].views + 1;
+
+    const { rows, rowCount } = await getShortUrlDB(shortUrl);
+    if (!rowCount) return res.status(404);
+    
+    await updateUrlDB(countViewsUrl, shortUrl);
+    res.redirect(redirectToUrl);
   } catch (error) {
     res.status(500).send(error.message);
   }

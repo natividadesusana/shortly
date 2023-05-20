@@ -20,3 +20,17 @@ export function getUrlByIdDB(id) {
     [id]
   );
 }
+
+export function getShortUrlDB(shortUrl){
+  return db.query(
+    `SELECT * FROM urls WHERE "shortUrl"=$1`, 
+    [shortUrl]
+  );
+}
+
+export function updateUrlDB(views, shortUrl){
+  return db.query(
+    `UPDATE urls views SET views=$1 WHERE "shortUrl"=$2`, 
+    [views, shortUrl]
+  );
+}
