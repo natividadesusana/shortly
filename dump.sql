@@ -27,7 +27,8 @@ SET default_table_access_method = heap;
 CREATE TABLE public.auth_tokens (
     id integer NOT NULL,
     "userId" integer NOT NULL,
-    token character varying(255) NOT NULL
+    token character varying(255) NOT NULL,
+    "createdAt" timestamp without time zone DEFAULT CURRENT_TIMESTAMP
 );
 
 
@@ -60,7 +61,8 @@ CREATE TABLE public.urls (
     "userId" integer NOT NULL,
     "shortUrl" character varying(255) NOT NULL,
     url character varying(255) NOT NULL,
-    visit integer DEFAULT 0
+    visit integer DEFAULT 0,
+    "createdAt" timestamp without time zone DEFAULT CURRENT_TIMESTAMP
 );
 
 
@@ -142,43 +144,41 @@ ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_
 -- Data for Name: auth_tokens; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-INSERT INTO public.auth_tokens VALUES (1, 1, 'c0fc34bd-d0ef-4cf1-93d5-f51161ff9ee3');
-INSERT INTO public.auth_tokens VALUES (2, 2, '017d09b3-5dfa-4c95-ac2a-e03c7ea971ea');
-INSERT INTO public.auth_tokens VALUES (3, 1, '4cdb6e61-f3b3-4635-b572-2bb77acdb03d');
-INSERT INTO public.auth_tokens VALUES (4, 2, 'cb32d6cd-37c4-487c-b377-b9049a5f9b13');
+INSERT INTO public.auth_tokens VALUES (1, 2, 'b87607e4-a1f3-49eb-8859-d4886cc589b3', '2023-05-22 13:03:25.848601');
+INSERT INTO public.auth_tokens VALUES (2, 1, 'f45adc78-3ec5-4d7b-9bcf-f9f5e4924229', '2023-05-22 13:03:32.791753');
+INSERT INTO public.auth_tokens VALUES (3, 2, '48c70562-744b-4764-be7a-0131dc957431', '2023-05-22 13:04:05.303892');
 
 
 --
 -- Data for Name: urls; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-INSERT INTO public.urls VALUES (2, 2, 'Mo-9rlT34FfsydHwwDW4g', 'https://www.instagram.com', 1);
-INSERT INTO public.urls VALUES (4, 1, 'B_1ZVWcmOgBqz036h6G4C', 'https://www.globo.com', 5);
-INSERT INTO public.urls VALUES (5, 1, 'zSi26cEkRacHYZY7uE-_Z', 'https://www.youtube.com', 2);
-INSERT INTO public.urls VALUES (6, 1, 'cEldQnbWScqWleiR4YO2X', 'https://www.carrosvelozes.com', 1);
-INSERT INTO public.urls VALUES (3, 2, '646r0KSBspzZdA58bBZNp', 'https://www.facebook.com', 3);
+INSERT INTO public.urls VALUES (2, 1, 'ai950-IrezaDv43qcXmum', 'https://www.instagram.com', 0, '2023-05-22 13:03:58.509922');
+INSERT INTO public.urls VALUES (4, 2, 'T6KSVPjuWW86UMpgRUBY_', 'https://www.google.com', 0, '2023-05-22 13:04:25.410138');
+INSERT INTO public.urls VALUES (1, 1, 'ktPRPyx_qwNJcccXOV2An', 'https://www.globo.com', 2, '2023-05-22 13:03:50.80972');
+INSERT INTO public.urls VALUES (3, 2, 'gzB_EjfbM5ZjN7ACz8QQd', 'https://www.youtube.com', 2, '2023-05-22 13:04:21.029734');
 
 
 --
 -- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-INSERT INTO public.users VALUES (1, 'João', 'joao@driven.com.br', '$2b$10$quwqR.QmWyjTEHm0HEBUv.Oygbtx1yMMVT3DJccve8/JTagD1eQ/e', '2023-05-22 00:50:15.450974');
-INSERT INTO public.users VALUES (2, 'Felipe', 'felipe@driven.com.br', '$2b$10$7kwH2f26IFukylDwH3VnO.1z2adoK50mp13NMW7ugDn1.SsM4MTWC', '2023-05-22 01:07:54.740306');
+INSERT INTO public.users VALUES (1, 'Felipe', 'felipe@driven.com.br', '$2b$10$X7XBptORW0rlGujVDtcTjO9bP1M.bkGU48/SQr3zpOtEXeZIyt.Ra', '2023-05-22 13:03:05.550147');
+INSERT INTO public.users VALUES (2, 'Susana', 'susana@driven.com.br', '$2b$10$uBt14OmmT.pLNEVO6/576uAb4/jfSMC5OnngD.yFmg6A3CmY4Gpia', '2023-05-22 13:03:13.434853');
 
 
 --
 -- Name: auth_tokens_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.auth_tokens_id_seq', 4, true);
+SELECT pg_catalog.setval('public.auth_tokens_id_seq', 3, true);
 
 
 --
 -- Name: urls_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.urls_id_seq', 6, true);
+SELECT pg_catalog.setval('public.urls_id_seq', 4, true);
 
 
 --
