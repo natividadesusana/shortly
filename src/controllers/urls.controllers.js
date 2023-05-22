@@ -17,8 +17,8 @@ export async function createUrl(req, res) {
   try {
     await createUrlDB(url, userId, shortUrl);
     const createdUrl = await getUrlDB(shortUrl);
-    const urlId = createdUrl.rows[0].id;
-    res.status(201).send({ urlId, shortUrl });
+    const id = createdUrl.rows[0].id;
+    res.status(201).send({ id, shortUrl });
   } catch (error) {
     res.status(500).send(error.message);
   }
@@ -43,7 +43,7 @@ export async function getShortUrl(req, res) {
   const { shortUrl } = req.params;
   try {
     const { rows, rowCount } = await getShortUrlDB(shortUrl);
-
+    console.log(rows)
     if (!rowCount) {
       return res.sendStatus(404);
     }
