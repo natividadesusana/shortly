@@ -21,7 +21,7 @@ SET default_tablespace = '';
 SET default_table_access_method = heap;
 
 --
--- Name: auth_tokens; Type: TABLE; Schema: public; Owner: postgres
+-- Name: auth_tokens; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE public.auth_tokens (
@@ -31,10 +31,8 @@ CREATE TABLE public.auth_tokens (
 );
 
 
-ALTER TABLE public.auth_tokens OWNER TO postgres;
-
 --
--- Name: auth_tokens_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+-- Name: auth_tokens_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
 CREATE SEQUENCE public.auth_tokens_id_seq
@@ -46,17 +44,15 @@ CREATE SEQUENCE public.auth_tokens_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.auth_tokens_id_seq OWNER TO postgres;
-
 --
--- Name: auth_tokens_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+-- Name: auth_tokens_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
 ALTER SEQUENCE public.auth_tokens_id_seq OWNED BY public.auth_tokens.id;
 
 
 --
--- Name: urls; Type: TABLE; Schema: public; Owner: postgres
+-- Name: urls; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE public.urls (
@@ -68,10 +64,8 @@ CREATE TABLE public.urls (
 );
 
 
-ALTER TABLE public.urls OWNER TO postgres;
-
 --
--- Name: urls_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+-- Name: urls_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
 CREATE SEQUENCE public.urls_id_seq
@@ -83,17 +77,15 @@ CREATE SEQUENCE public.urls_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.urls_id_seq OWNER TO postgres;
-
 --
--- Name: urls_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+-- Name: urls_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
 ALTER SEQUENCE public.urls_id_seq OWNED BY public.urls.id;
 
 
 --
--- Name: users; Type: TABLE; Schema: public; Owner: postgres
+-- Name: users; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE public.users (
@@ -105,10 +97,8 @@ CREATE TABLE public.users (
 );
 
 
-ALTER TABLE public.users OWNER TO postgres;
-
 --
--- Name: users_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+-- Name: users_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
 CREATE SEQUENCE public.users_id_seq
@@ -120,94 +110,86 @@ CREATE SEQUENCE public.users_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.users_id_seq OWNER TO postgres;
-
 --
--- Name: users_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+-- Name: users_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
 ALTER SEQUENCE public.users_id_seq OWNED BY public.users.id;
 
 
 --
--- Name: auth_tokens id; Type: DEFAULT; Schema: public; Owner: postgres
+-- Name: auth_tokens id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.auth_tokens ALTER COLUMN id SET DEFAULT nextval('public.auth_tokens_id_seq'::regclass);
 
 
 --
--- Name: urls id; Type: DEFAULT; Schema: public; Owner: postgres
+-- Name: urls id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.urls ALTER COLUMN id SET DEFAULT nextval('public.urls_id_seq'::regclass);
 
 
 --
--- Name: users id; Type: DEFAULT; Schema: public; Owner: postgres
+-- Name: users id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_id_seq'::regclass);
 
 
 --
--- Data for Name: auth_tokens; Type: TABLE DATA; Schema: public; Owner: postgres
+-- Data for Name: auth_tokens; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY public.auth_tokens (id, "userId", token) FROM stdin;
-1	1	c0fc34bd-d0ef-4cf1-93d5-f51161ff9ee3
-2	2	017d09b3-5dfa-4c95-ac2a-e03c7ea971ea
-3	1	4cdb6e61-f3b3-4635-b572-2bb77acdb03d
-4	2	cb32d6cd-37c4-487c-b377-b9049a5f9b13
-\.
+INSERT INTO public.auth_tokens VALUES (1, 1, 'c0fc34bd-d0ef-4cf1-93d5-f51161ff9ee3');
+INSERT INTO public.auth_tokens VALUES (2, 2, '017d09b3-5dfa-4c95-ac2a-e03c7ea971ea');
+INSERT INTO public.auth_tokens VALUES (3, 1, '4cdb6e61-f3b3-4635-b572-2bb77acdb03d');
+INSERT INTO public.auth_tokens VALUES (4, 2, 'cb32d6cd-37c4-487c-b377-b9049a5f9b13');
 
 
 --
--- Data for Name: urls; Type: TABLE DATA; Schema: public; Owner: postgres
+-- Data for Name: urls; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY public.urls (id, "userId", "shortUrl", url, visit) FROM stdin;
-2	2	Mo-9rlT34FfsydHwwDW4g	https://www.instagram.com	1
-4	1	B_1ZVWcmOgBqz036h6G4C	https://www.globo.com	5
-5	1	zSi26cEkRacHYZY7uE-_Z	https://www.youtube.com	2
-6	1	cEldQnbWScqWleiR4YO2X	https://www.carrosvelozes.com	1
-3	2	646r0KSBspzZdA58bBZNp	https://www.facebook.com	3
-\.
+INSERT INTO public.urls VALUES (2, 2, 'Mo-9rlT34FfsydHwwDW4g', 'https://www.instagram.com', 1);
+INSERT INTO public.urls VALUES (4, 1, 'B_1ZVWcmOgBqz036h6G4C', 'https://www.globo.com', 5);
+INSERT INTO public.urls VALUES (5, 1, 'zSi26cEkRacHYZY7uE-_Z', 'https://www.youtube.com', 2);
+INSERT INTO public.urls VALUES (6, 1, 'cEldQnbWScqWleiR4YO2X', 'https://www.carrosvelozes.com', 1);
+INSERT INTO public.urls VALUES (3, 2, '646r0KSBspzZdA58bBZNp', 'https://www.facebook.com', 3);
 
 
 --
--- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: postgres
+-- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY public.users (id, name, email, password, "createdAt") FROM stdin;
-1	João	joao@driven.com.br	$2b$10$quwqR.QmWyjTEHm0HEBUv.Oygbtx1yMMVT3DJccve8/JTagD1eQ/e	2023-05-22 00:50:15.450974
-2	Felipe	felipe@driven.com.br	$2b$10$7kwH2f26IFukylDwH3VnO.1z2adoK50mp13NMW7ugDn1.SsM4MTWC	2023-05-22 01:07:54.740306
-\.
+INSERT INTO public.users VALUES (1, 'João', 'joao@driven.com.br', '$2b$10$quwqR.QmWyjTEHm0HEBUv.Oygbtx1yMMVT3DJccve8/JTagD1eQ/e', '2023-05-22 00:50:15.450974');
+INSERT INTO public.users VALUES (2, 'Felipe', 'felipe@driven.com.br', '$2b$10$7kwH2f26IFukylDwH3VnO.1z2adoK50mp13NMW7ugDn1.SsM4MTWC', '2023-05-22 01:07:54.740306');
 
 
 --
--- Name: auth_tokens_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+-- Name: auth_tokens_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
 SELECT pg_catalog.setval('public.auth_tokens_id_seq', 4, true);
 
 
 --
--- Name: urls_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+-- Name: urls_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
 SELECT pg_catalog.setval('public.urls_id_seq', 6, true);
 
 
 --
--- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+-- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
 SELECT pg_catalog.setval('public.users_id_seq', 2, true);
 
 
 --
--- Name: auth_tokens auth_tokens_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: auth_tokens auth_tokens_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.auth_tokens
@@ -215,7 +197,7 @@ ALTER TABLE ONLY public.auth_tokens
 
 
 --
--- Name: urls urls_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: urls urls_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.urls
@@ -223,7 +205,7 @@ ALTER TABLE ONLY public.urls
 
 
 --
--- Name: users users_email_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: users users_email_key; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.users
@@ -231,7 +213,7 @@ ALTER TABLE ONLY public.users
 
 
 --
--- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.users
@@ -239,7 +221,7 @@ ALTER TABLE ONLY public.users
 
 
 --
--- Name: auth_tokens auth_tokens_userId_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: auth_tokens auth_tokens_userId_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.auth_tokens
@@ -247,7 +229,7 @@ ALTER TABLE ONLY public.auth_tokens
 
 
 --
--- Name: urls urls_userId_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: urls urls_userId_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.urls
