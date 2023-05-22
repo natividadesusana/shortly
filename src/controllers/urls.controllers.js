@@ -30,7 +30,7 @@ export async function getUrlById(req, res) {
   try {
     const { rows, rowCount } = await getUrlByIdDB(id);
     if (!rowCount) {
-      return res.status(404);
+      return res.sendStatus(404);
     }
     res.status(200).send(rows[0]);
   } catch (error) {
@@ -42,13 +42,15 @@ export async function getUrlById(req, res) {
 export async function getShortUrl(req, res) {
   const { shortUrl } = req.params;
   try {
-    const redirectToUrl = rows[0].url;
-    const countViewsUrl = rows[0].views + 1;
     const { rows, rowCount } = await getShortUrlDB(shortUrl);
+
     if (!rowCount) {
-      return res.status(404);
+      return res.sendStatus(404);
     }
-    await updateUrlDB(countViewsUrl, shortUrl);
+    const redirectToUrl = rows[0].url;
+    const countVisitUrl = rows[0].visit + 1;
+
+    await updateUrlDB(countVisitUrl, shortUrl);
     res.redirect(redirectToUrl);
   } catch (error) {
     res.status(500).send(error.message);
@@ -62,11 +64,11 @@ export async function deleteUrl(req, res) {
   try {
     const { rowCount } = await getUserDB(userId, id);
     if (!rowCount) {
-      return res.status(401);
+      return res.sendStatus(401);
     }
     const { rowCount: urlExists } = await getUrlByIdDB(id);
     if (!urlExists) {
-      return res.status(404);
+      return res.sendStatus(404);
     }
     await deleteUrlDB(id);
     res.sendStatus(204);

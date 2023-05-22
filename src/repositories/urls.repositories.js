@@ -33,17 +33,17 @@ export function getShortUrlDB(shortUrl){
 }
 
 
-export function updateUrlDB(views, shortUrl){
+export function updateUrlDB(visit, shortUrl){
   return db.query(
-    `UPDATE urls views SET views=$1 WHERE "shortUrl"=$2`, 
-    [views, shortUrl]
+    `UPDATE urls visit SET visit=$1 WHERE "shortUrl"=$2`, 
+    [visit, shortUrl]
   );
 }
 
 
 export function getUserDB(idUser, id){
   return db.query(
-    `SELECT * FROM urls WHERE "idUser"=$1 AND id=$2`, 
+    `SELECT * FROM urls WHERE "userId"=$1 AND id=$2`, 
     [idUser, id]
   );
 }

@@ -20,7 +20,7 @@ export function getEmailDB(email) {
 
 export function signInDB(user, token) {
   return db.query(
-    `INSERT INTO sessions ("userId", token) VALUES ($1, $2)`,
+    `INSERT INTO auth_tokens ("userId", token) VALUES ($1, $2)`,
     [ user[0].id, token ]
   );
 }
@@ -28,7 +28,7 @@ export function signInDB(user, token) {
 
 export function findSession(token) {
   return db.query(
-    `SELECT * FROM sessions WHERE token=$1`,
+    `SELECT * FROM auth_tokens WHERE token=$1`,
     [token]
   );
 }

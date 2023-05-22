@@ -7,7 +7,7 @@ export async function validateSignUp(req, res, next) {
   try {
     const { rowCount: userExists } = await getEmailDB(email);
     if (userExists) {
-      return res.status(409);
+      return res.sendStatus(409);
     }
     next();
   } catch (error) {
@@ -21,11 +21,11 @@ export async function validateSignIn(req, res, next) {
   try {
     const { rows: user, rowCount: userExists } = await getEmailDB(email);
     if (!userExists) {
-      return res.status(401);
+      return res.sendStatus(401);
     }
     const isPasswordValid = bcrypt.compareSync(password, user[0].password);
     if (!isPasswordValid) {
-      return res.status(401);
+      return res.sendStatus(401);
     }
     res.locals.user = user;
     next();
