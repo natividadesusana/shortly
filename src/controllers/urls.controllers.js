@@ -62,14 +62,16 @@ export async function deleteUrl(req, res) {
   const { id } = req.params;
   const { userId } = res.locals.session;
   try {
-    const { rowCount } = await getUserDB(userId, id);
-    if (!rowCount) {
-      return res.sendStatus(401);
-    }
     const { rowCount: urlExists } = await getUrlByIdDB(id);
     if (!urlExists) {
       return res.sendStatus(404);
     }
+
+    const { rowCount } = await getUserDB(userId, id);
+    if (!rowCount) {
+      return res.sendStatus(401);
+    }
+
     await deleteUrlDB(id);
     res.sendStatus(204);
   } catch (error) {
