@@ -53,8 +53,8 @@ To run this project locally, you'll need to follow these steps:
 - Create a .env file in the root directory of the project.
 - Add the following environment variables to the .env file:
 
-      MONGODB_URI=<your-mongodb-uri>
-      JWT_SECRET=<your-jwt-secret>
+        MONGODB_URI=<your-mongodb-uri>
+        JWT_SECRET=<your-jwt-secret>
 
 - Replace <your-mongodb-uri> with the connection URI for your MongoDB database.
 - Replace <your-jwt-secret> with a secret key for JWT token generation.
