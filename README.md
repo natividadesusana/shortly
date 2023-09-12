@@ -16,7 +16,6 @@ Shortly was developed as a personal project to practice building a full-stack we
 - Node.js with Express.js for the server-side logic and API endpoints.
 - MongoDB for the database to store user information and URL data.
 - Axios for making HTTP requests to the server.
-- JWT (JSON Web Tokens) for user authentication and authorization.
 
 ## ⚙️ Endpoints
 - POST /signup: Creates a new user account with the provided name, email, password, and confirmPassword. Responds with a status code of 201 upon successful account creation. Validates the request body for empty values, data types, field names, password matching, and valid email format. If there are any errors in the request body, it responds with a status code of 422 and the corresponding error messages. If the email is already registered, it responds with a status code of 409.
