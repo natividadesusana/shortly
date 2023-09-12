@@ -1,61 +1,184 @@
-# Shortly Project
+# Shortly 
 
-## ℹ️ About
-Shortly is a URL shortening web application that allows users to shorten long URLs into shorter, more manageable links. The main features of the project include:
+## 💠 About
 
-- User authentication with signup and signin functionalities.
-- Shorten a long URL and generate a unique short URL.
-- Retrieve information about a shortened URL, including its original URL and visit count.
-- Delete a shortened URL.
-- View user-specific information, including the number of visits and total links created.
-- Ranking of the top 10 users based on the total number of visits and links created.
-  
-Shortly was developed as a personal project to practice building a full-stack web application and demonstrate my proficiency in creating user authentication, API endpoints, and database management.
+This is a URL shortener service with authentication, it was developed using Node.js and PostgreSQL. It allows users to sign up, sign in, shorten URLs, view statistics, and manage their shortened URLs.
 
-## 🛠️ Technologies
-- Node.js with Express.js for the server-side logic and API endpoints.
-- MongoDB for the database to store user information and URL data.
-- Axios for making HTTP requests to the server.
+<hr/>
 
-## ⚙️ Endpoints
-- POST /signup: Creates a new user account with the provided name, email, password, and confirmPassword. Responds with a status code of 201 upon successful account creation. Validates the request body for empty values, data types, field names, password matching, and valid email format. If there are any errors in the request body, it responds with a status code of 422 and the corresponding error messages. If the email is already registered, it responds with a status code of 409.
+## 🌐 Technologies
 
-- POST /signin: Authenticates the user with the provided email and password. Responds with a status code of 200 and a generated token upon successful authentication. Validates the request body for empty values, data types, field names, and valid email format. If there are any errors in the request body, it responds with a status code of 422 and the corresponding error messages. If the user email or password is incorrect or does not exist, it responds with a status code of 401.
+<p align='rigth'>
+<img style='margin: 2px;' src='https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white'/>
+<img style='margin: 2px;' src='https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black'/>
+<img style='margin: 2px;' src='https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB'/>
+<img style='margin: 2px;' src='https://img.shields.io/badge/postgres-%234ea94b.svg?style=for-the-badge&logo=postgresql&logoColor=white'>
+<img style='margin: 2px; width:70px' src='https://img.shields.io/badge/NPM-%23CB3837.svg?style=for-the-badge&logo=npm&logoColor=white/'>
+</p>
 
-- POST /urls/shorten: Creates a shortened URL for the authenticated user with the provided original URL. Requires a valid JWT token in the Authorization header. Responds with a status code of 201 and the shortened URL object containing its ID and short URL. Validates the request body for empty values and the presence of a valid JWT token. Uses the nanoid library to generate the short URL. If the JWT token is missing or invalid, it responds with a status code of 401. If there are any errors in the request body, it responds with a status code of 422 and the corresponding error messages.
 
-- GET /urls/:id: Retrieves information about the specified shortened URL. Responds with a status code of 200 and the shortened URL object containing its ID, short URL, and original URL. If the shortened URL does not exist, it responds with a status code of 404.
+<hr/>
 
-- GET /urls/open/:shortUrl: Redirects the user to the corresponding original URL associated with the short URL, increases the visit count of the link, and responds with a status code of 301 or 404 if the short URL does not exist.
+## ⚙️ Routes
 
-- DELETE /urls/:id: Deletes the specified shortened URL if it belongs to the authenticated user. Requires a valid JWT token in the Authorization header. Responds with a status code of 204 upon successful deletion. If the JWT token is missing or invalid, it responds with a status code of 401. If the shortened URL does not exist or does not belong to the user, it responds with a status code of 404.
+#### <span style='font-weight:bold;'>POST</span> /signup
 
-- GET /users/me: Retrieves user-specific information for the authenticated user. Requires a valid JWT token in the Authorization header. Responds with a status code of 200 and the user object containing the user's ID, name, visit count (sum of all link visits), and an array of shortened URL objects containing each URL's ID, short URL, original URL, and visit count. If the JWT token is missing or invalid, it responds with a status code of 401.
+A route that creates a new user account. If there's a participant with this e-mail already registered, it returns a 409 status code error. If its sucessfull it returns a 201 status code. The request body should contain:
 
-- GET /ranking: Retrieves the top 10 users based on the total number of visits and links created. Responds with a status code of 200 and an array of user objects, each containing the user's ID, name, links count, and visit count. The list is ordered by the sum of visits for all links created by each user. If there are users with zero visits or links, they will be included in the ranking. The list is limited to 10 users.
+```
+{
+  "name": "João",
+  "email": "joao@driven.com.br",
+  "password": "driven",
+  "confirmPassword": "driven"
+}
+```
 
-## 🚀 Next Steps
-Implement a password reset functionality for users.
-Add a feature for users to update their account information.
-Improve error handling and error messages for a better user experience.
-Implement pagination for the /urls and /users/me endpoints to handle large datasets efficiently.
+#### <span style='font-weight:bold;'>POST</span> /signup
+
+A route that will allow the user to sign in. If there's no user with the given e-mail registered it'll return a 404 status code error, if the password doesn't match with the ones given on signUp, it'll return a 401 status code error. It'll return a token as a response.
+
+#### <span style='font-weight:bold;'>POST</span> /urls/shorten
+
+This is an authenticated route. It requires an Authorization header, if the Authorization header is missing or invalid, responds with status code 401.
+
+```
+headers: { Authorization: `Bearer ${token}` }
+```
+
+Receives a request body in the following format:
+
+```
+{
+  "url": "https://..."
+}
+```
+If there is an error in the format of the request body, responds with status code 422 and the corresponding errors. In case of success it'll return a 201 status code and a response like this:
+
+```
+{
+  "id": 1,
+  "shortUrl": "a8745bcf" // here the generated identifier
+}
+```
+
+#### <span style='font-weight:bold;'>GET</span> /urls/:id
+This is not an authenticated route. If the shortened URL does not exist, responds with status code 404. It responds with status code 200 in case of success and a response body in the following format:
+
+```
+{
+  "id": 1,
+  "shortUrl": "bd8235a0",
+  "url": "https://..."
+}
+```
+
+#### <span style='font-weight:bold;'>GET</span> /urls/open/:shortUrl
+This is not an authenticated route. It redirects the user to the corresponding link and also increments the visit count for the link. If the shortened URL does not exist, responds with a 404 status code error.
+
+#### <span style='font-weight:bold;'>DELETE</span> /urls/:id
+This is an authenticated route. It requires an Authorization header in the format Bearer TOKEN. If the Authorization header is missing or invalid, responds with status code 401. Responds with status code 401 when the shortened URL does not belong to the user. If the shortened URL belongs to the user, responds with status code 204 and deletes the shortened URL. If the shortened URL does not exist, responds with status code 404.
+
+#### <span style='font-weight:bold;'>GET</span> /users/me
+This is an authenticated route. It requires an Authorization header in the format Bearer TOKEN. Returns the data of the user associated with the token. If the Authorization header is missing or invalid, responds with status code 401. Responds with status code 200 and a response body in the following format:
+
+```
+{
+  "id": user ID,
+  "name": user name,
+  "visitCount": sum of the visit counts of all user's links,
+  "shortenedUrls": [
+    {
+      "id": 1,
+      "shortUrl": "...",
+      "url": "...",
+      "visitCount": sum of the visit counts for the link
+    },
+    {
+      "id": 2,
+      "shortUrl": "...",
+      "url": "...",
+      "visitCount": sum of the visit counts for the link
+    }
+  ]
+}
+```
+
+#### <span style='font-weight:bold;'>GET</span> /ranking
+This is not an authenticated route. It'll show the 10 most visited links, it responds with status code 200 and a response body in the following format:
+
+```
+[
+  {
+    "id": user ID,
+    "name": user name,
+    "linksCount": 5,
+    "visitCount": 100000
+  },
+  {
+    "id": user ID,
+    "name": user name,
+    "linksCount": 3,
+    "visitCount": 85453
+  },
+  {
+    "id": user ID,
+    "name": user name,
+    "linksCount": 10,
+    "visitCount": 0
+  },
+  {
+    "id": user ID,
+    "name": user name,
+    "linksCount": 0,
+    "visitCount": 0
+  }
+]
+```
+
+<hr/>
 
 ## 🖇 How to run
-To run this project locally, you'll need to follow these steps:
 
-1. Clone this repository: git clone https://github.com/natividadesusana/projeto17-shortly.git
-2. Install the dependencies: npm install
-3. Set up the environment variables:
-- Create a .env file in the root directory of the project.
-- Add the following environment variables to the .env file:
+To run this, you'll have to install PostgreSQL and create a table to acess the database.
 
-        MONGODB_URI=<your-mongodb-uri>
-        JWT_SECRET=<your-jwt-secret>
+1. Clone this repository
+2. Install the dependencies
 
-- Replace <your-mongodb-uri> with the connection URI for your MongoDB database.
-- Replace <your-jwt-secret> with a secret key for JWT token generation.
-6. Run the development server: npm start
-7. Access http://localhost:3000 in your browser to see the app running.
+```
+npm i
+```
 
-## How to Contribute
+3. Create a **.env** file in the root directory and add the necessary environment variables. This file should not be committed to GitHub for security reasons. It should look like this:
+
+```
+DATABASE_URL=postgresql://<username>:<password>@localhost:5432/<database_name>
+
+    <username>: your PostgreSQL username.
+    <password>: your PostgreSQL password.
+    <database_name>: database name which you want to connect.
+```
+
+4. Restore the database dump with the following command:
+
+```
+psql -U <username> -d <database_name> -f dump.sql
+
+Replace <username> with the PostgreSQL username that should be used for the database.
+Replace <database_name> with the name of the database where the dump should be restored.
+```
+
+5. Run the back-end with
+
+```
+npm start
+```
+
+6. Access http://localhost:5000 on your browser to run the API.
+
+<hr/>
+
+## 🛠️ How to Contribute
 Contributions are always welcome! If you find any bugs or have suggestions for new features, feel free to open an issue or pull request.
+
+Happy coding! 🚀
