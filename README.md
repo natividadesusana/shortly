@@ -16,6 +16,9 @@ This is a URL shortener service with authentication, it was developed using Node
 <img style='margin: 2px; width:70px' src='https://img.shields.io/badge/NPM-%23CB3837.svg?style=for-the-badge&logo=npm&logoColor=white/'>
 </p>
 
+<hr/>
+
+🔸 Deploy Render Link: shortly-api-sql-87w1.onrender.com
 
 <hr/>
 
